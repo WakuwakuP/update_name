@@ -6,7 +6,7 @@ require 'yaml'
 tokens = YAML.load_file("./kay.yml")
 tokens.each do |token|
 	@client = Twitter::REST::Client.new(token)
-	@stream_client = Twitter::Streaming::Client.new(token)sa
+	@stream_client = Twitter::Streaming::Client.new(token)
 end
 
 def ng_word?(name)

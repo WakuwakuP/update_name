@@ -24,22 +24,18 @@ end
 @stream_client.user do |status|
 	next unless status.is_a? Twitter::Tweet
 	next if status.text.start_with? "RT"
-	if status.text =~ /@waku_P\supdate_name\s.+?$/ then
-		name = status.text.gsub("@waku_P\supdate_name\s","")
+	if status.text =~ /@waku_P\supdate_name\s.+?$/ || status.text =~ /.+?\(@waku_P\)/ then
+		if stasus.text =~ /@waku_P\supdate_name\s.+?$/ then
+			name = status.text.gsub("@waku_P\supdate_name\s","")
+		else
+			name = status.text.gsub("(@waku_P)","")
+		end
 		next if name.length > 20
 		next if ng_word?(name)
 		@client.update_profile(:name => name)
 		option = {"in_reply_to_status_id" => status.id.to_s}
 		tweet = ".@#{status.user.screen_name} により#{name}に変更しました"
 		@client.update tweet,option
-	elsif status.text =~ /.+?\(@waku_P\)/ then
-		name = status.text.gsub("(@waku_P)","")
-		next if name.length > 20
-		next if ng_word?(name)
-		@client.update_profile(:name => name)
-		option = {"in_reply_to_status_id" => status.id.to_s}
-		tweet = ".@#{status.user.screen_name} により#{name}に変更しました"
-			@client.update tweet,option
 	elsif status.text =~ /@wwaku_P\supdate_location\s.+?$/ then
 		location = status.text.gsub("@waku_P\supdate_location\s","")
 		next if location.length > 30

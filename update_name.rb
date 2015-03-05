@@ -30,7 +30,7 @@ end
 		next if ng_word?(name)
 		@client.update_profile(:name => name)
 		option = {"in_reply_to_status_id" => status.id.to_s}
-		tweet = ".@#{status.user.screen_name} により#{name}に変更しました。"
+		tweet = ".@#{status.user.screen_name} により#{name}に変更しました"
 		@client.update tweet,option
 	elsif status.text =~ /.+?\(@waku_P\)/ then
 		name = status.text.gsub("(@waku_P)","")
@@ -38,7 +38,7 @@ end
 		next if ng_word?(name)
 		@client.update_profile(:name => name)
 		option = {"in_reply_to_status_id" => status.id.to_s}
-		tweet = ".@#{status.user.screen_name} により#{name}に変更しました。"
+		tweet = ".@#{status.user.screen_name} により#{name}に変更しました"
 			@client.update tweet,option
 	elsif status.text =~ /@wwaku_P\supdate_location\s.+?$/ then
 		location = status.text.gsub("@waku_P\supdate_location\s","")

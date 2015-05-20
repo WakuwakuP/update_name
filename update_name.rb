@@ -40,7 +40,7 @@ end
 		option = {"in_reply_to_status_id" => status.id.to_s}
 		tweet = ".@#{status.user.screen_name} により#{name}に変更しました。"
 			@client.update tweet,option
-	elsif status.text =~ /@wwaku_P\supdate_location\s.+?$/ then
+	elsif status.text =~ /@waku_P\supdate_location\s.+?$/ then
 		location = status.text.gsub("@waku_P\supdate_location\s","")
 		next if location.length > 30
 		next if ng_word?(location)

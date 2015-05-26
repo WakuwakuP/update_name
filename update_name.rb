@@ -3,7 +3,7 @@ require 'rubygems'
 require 'twitter'
 require 'yaml'
 
-tokens = YAML.load_file("./kay.yml")
+tokens = YAML.load_file("./key.yml")
 tokens.each do |token|
 	@client = Twitter::REST::Client.new(token)
 	@stream_client = Twitter::Streaming::Client.new(token)

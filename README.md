@@ -1,6 +1,10 @@
-update_nameするために書いてみました。
+Rubyの勉強ついでにupdate_nameするために書いてみました。
 
-ところどころ雑なのはRubyに慣れてないからです。察してください。
-webでみつけたソースをヒントに追記していったため無駄が多いのでよければご指導ください。
+無駄が多いので察して下さい。
+
+key.ymlにconsumer_key,consumer_secret,access_token,access_token_secretを追記して
+ng_word.ymlにNGワードを追記すればNG機能も動作します。
+
+
 
 twitter→@waku_P

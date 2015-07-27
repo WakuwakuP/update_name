@@ -15,16 +15,15 @@ def ng_word?(name)
         ng_words.map do |ng_word|
             true if name.include?(ng_word)
         end.include?(true)
-    else
+    elses
         false
     end
 end
 
-
 @stream_client.user do |status|
 	next unless status.is_a? Twitter::Tweet
 	next if status.text.start_with? "RT"
-	if status.text =~ /@waku_P\supdate_name\s.+?$/ then
+	if status.text =~ /\A@waku_P\supdate_name\s.+?$/ then
 		name = status.text.gsub("@waku_P\supdate_name\s","")
 		next if name.length > 20
 		next if ng_word?(name)
@@ -39,14 +38,29 @@ end
 		@client.update_profile(:name => name)
 		option = {"in_reply_to_status_id" => status.id.to_s}
 		tweet = ".@#{status.user.screen_name} により#{name}に変更しました。"
-			@client.update tweet,option
-	elsif status.text =~ /@waku_P\supdate_location\s.+?$/ then
+		@client.update tweet,option
+	elsif status.text =~ /\A@waku_P\supdate_location\s.+?$/ then
 		location = status.text.gsub("@waku_P\supdate_location\s","")
 		next if location.length > 30
 		next if ng_word?(location)
 		@client.update_profile(:location => location)
 		option = {"in_reply_to_status_id" => status.id.to_s}
 		tweet = "私は#{location}にいます(@#{status.user.screen_name}さん情報)"
+		@client.update tweet,option
+	elsif status.text =~ /\A@waku_P\supdate_tweet\s.+?$/ then
+		tweet = status.text.gsub("@waku_P\supdate_tweet\s","")
+		next if tweet.length > 140
+		next if ng_word?(tweet)
+		option = {"in_reply_to_status_id" => status.id.to_s}
+		tweet = "#{tweet}"
+		@client.update tweet,option
+	elsif status.text =~ /\AワクワクPは.+?$/ then
+		name = status.text.gsub("ワクワクPは","")
+		next if name.length > 20
+		next if ng_word?(name)
+		@client.update_profile(:name => name)
+		option = {"in_reply_to_status_id" => status.id.to_s}
+		tweet = "僕は#{name}"
 		@client.update tweet,option
 	end
 end

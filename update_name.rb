@@ -52,7 +52,6 @@ end
 		next if tweet.length > 140
 		next if ng_word?(tweet)
 		option = {"in_reply_to_status_id" => status.id.to_s}
-		tweet = "#{tweet}"
 		@client.update tweet,option
 	elsif status.text =~ /\AワクワクPは.+?$/ then
 		name = status.text.gsub("ワクワクPは","")

@@ -20,6 +20,7 @@ def ng_word?(name)
     end
 end
 
+
 @stream_client.user do |status|
 	next unless status.is_a? Twitter::Tweet
 	next if status.text.start_with? "RT"
@@ -60,6 +61,8 @@ end
 		@client.update_profile(:name => name)
 		option = {"in_reply_to_status_id" => status.id.to_s}
 		tweet = "僕は#{name}"
+		tw_id = status.id
 		@client.update tweet,option
+		@client.retweet tw_id.to_i
 	end
 end
